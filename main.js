@@ -20,28 +20,33 @@ if ( WebGL.isWebGLAvailable() ) {
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
 
-    const floor = new THREE.CircleGeometry(200,16);
+    const floor = new THREE.CircleGeometry(100,16);
     const floorMesh = new THREE.Mesh( floor );
     floorMesh.rotateX(degToRad(-90))
     scene.add(floorMesh)
-
-
-    const geometry = new THREE.SphereGeometry( 10, 16, 16 );
-    const material = new THREE.MeshBasicMaterial( { color: 0x3187A2 } );
-    const sphere = new THREE.Mesh( geometry, material );
-    sphere.translateZ(100)
-    scene.add( sphere );
-
-    const sphereTwo = new THREE.SphereGeometry( 10, 16, 16 );
-    const sphereTwoMat = new THREE.MeshBasicMaterial( { color: 0x00FF00 } );
-    const sphereTwoMesh = new THREE.Mesh( sphereTwo, sphereTwoMat );
-    sphereTwoMesh.translateZ(220)
-    scene.add( sphereTwoMesh );
 
     const originGeo = new THREE.SphereGeometry(5, 16, 16)
     const originMat = new THREE.MeshBasicMaterial( { color: 0xFF0000 } );
     const origin = new THREE.Mesh( originGeo, originMat );
     scene.add(origin);
+
+    const sphereOneParent = new THREE.Object3D();
+    const sphereOneGeo = new THREE.SphereGeometry( 10, 16, 16 );
+    const sphereOneMat = new THREE.MeshBasicMaterial( { color: 0x3187A2 } );
+    const sphereOne = new THREE.Mesh( sphereOneGeo, sphereOneMat );
+    sphereOne.translateZ(100)
+    sphereOneParent.add(sphereOne)
+    scene.add(sphereOneParent)
+
+    const sphereTwoParent = new THREE.Object3D();
+    const sphereTwoGeo = new THREE.SphereGeometry( 10, 16, 16 );
+    const sphereTwoMat = new THREE.MeshBasicMaterial( { color: 0x00FF00 } );
+    const sphereTwo = new THREE.Mesh( sphereTwoGeo, sphereTwoMat );
+    sphereTwo.translateZ(220)
+    sphereTwoParent.add(sphereTwo)
+    scene.add( sphereTwoParent );
+
+
 
 
 camera.position.z = 80;
@@ -49,12 +54,10 @@ camera.position.z = 80;
 function animate() {
 	requestAnimationFrame( animate );
 
-	sphere.rotation.y += 0.01;
-    sphere.translateX(1)
+    origin.rotateY(.02)
+    sphereOneParent.rotateY(.03)
 
-    sphereTwoMesh.rotateY(0.009);
-    sphereTwoMesh.translateX(2)
-    console.log(sphereTwoMesh.rotation)
+    sphereTwoParent.rotateY(0.009);
     controls.update();
 
 
