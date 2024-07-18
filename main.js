@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import WebGL from 'three/addons/capabilities/WebGL.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { degToRad } from 'three/src/math/MathUtils.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
@@ -15,18 +14,20 @@ if ( WebGL.isWebGLAvailable() ) {
 
 	const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xADD8E6)
-    const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+    const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1200 );
 
     const renderer = new THREE.WebGLRenderer();
-    const controls = new OrbitControls(camera, renderer.domElement);
+    renderer.setViewport(window.innerWidth, window.innerHeight )
     renderer.setSize( window.innerWidth, window.innerHeight );
     const composer = new EffectComposer( renderer );
 
-    document.body.appendChild( renderer.domElement );
+    //document.body.appendChild( renderer.domElement );
+    document.getElementById("viewport").appendChild(renderer.domElement)
 
     const originGeo = new THREE.SphereGeometry(15, 16, 16)
     const originMat = new THREE.MeshBasicMaterial( { color: 0xFF0000 } );
     const origin = new THREE.Mesh( originGeo, originMat );
+    origin.rotateY(45)
     scene.add(origin);
 
     const sphereOneParent = new THREE.Object3D();
@@ -34,6 +35,7 @@ if ( WebGL.isWebGLAvailable() ) {
     const sphereMat = new THREE.MeshBasicMaterial( { color: 0x3187A2 } );
     const sphereOne = new THREE.Mesh( sphereGeo, sphereMat );
     const sphereOne2 = new THREE.Mesh( sphereGeo, sphereMat );
+
 
     sphereOne2.translateZ(100)
     sphereOne.translateZ(-100)
@@ -92,7 +94,18 @@ if ( WebGL.isWebGLAvailable() ) {
     const outputPass = new OutputPass();
     composer.addPass( outputPass );
 
-camera.position.z = 80;
+    camera.position.set(-100, 0, 200)
+
+    function translateSphere() {
+        requestAnimationFrame(translate)
+        print("ma")
+        origin.translateX(-200)
+
+        composer.render();
+
+    }
+
+    scene.addEventListener("click", console.log(10))
 
 function animate() {
 	requestAnimationFrame( animate );
@@ -108,7 +121,7 @@ function animate() {
     sphereThreeParent.rotateY(0.01);
     sphereThreeParent.rotateX(0.01);
 
-    controls.update();
+
 
 
 	composer.render();

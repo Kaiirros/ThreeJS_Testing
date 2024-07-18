@@ -7,19 +7,55 @@
 			body { margin: 0; }
 
 			#info {
-				position: absolute;
+				position: relative;
 				top: 10px;
-				width: 100%;
+				width: 50%;
+				height: 100%;
 				text-align: center;
 				z-index: 100;
 				display:block;
 				color:white;
 			}
+			#viewport{
+				position: fixed;
+			}
+
+			.name{
+				position: relative;
+				text-align: center;
+				font-size: 10em;
+				text-shadow: rgba(75, 150, 172, 0.755) 5px 5px 1px;
+				bottom: 0px;
+				z-index: 10;
+				color: rgba(212, 90, 90, 0.792);
+				padding-top: 1em;
+				padding-bottom: 2em;
+			}
+			p{
+				text-align: center;
+				font-size: 4em;
+				color: rgb(197, 119, 119);
+				text-shadow: black 2px 2px 3px;
+
+			}
+
+			.content{
+				position: absolute;
+				width: 50%;
+			}
+
 		</style>
 	</head>
 	<body>
 		<script type="module" src="/main.js"></script>
-		<div id="info">Description</div>
+		<div id="viewport">
+
+		</div>
+
+		<div class="content">
+			<h1 class="name">Daniel McKee</h1>
+			<p>Highly motivated college student, looking for a place to contribute their skills and grow to benefit both the company and the community. Interested in experiencing and contributing to front and back-end web development firsthand.</p>
+		</div>
 
 	</body>
 </html>
