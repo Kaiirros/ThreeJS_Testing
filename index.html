@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>My first three.js app</title>
+		<title>McKee, Daniel</title>
 		<style>
 			body { margin: 0; }
 
@@ -20,6 +20,22 @@
 				position: fixed;
 			}
 
+			.header{
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				font-family: monospace;
+				text-align: center;
+				margin: auto;
+				width: 80%;
+
+			}
+
+			.header > h2{
+				font-size: 2em;
+			}
+
 			.name{
 				position: relative;
 				text-align: center;
@@ -27,21 +43,77 @@
 				text-shadow: rgba(75, 150, 172, 0.755) 5px 5px 1px;
 				bottom: 0px;
 				z-index: 10;
-				color: rgba(212, 90, 90, 0.792);
-				padding-top: 1em;
-				padding-bottom: 2em;
+				padding-top: 4em;
 			}
 			p{
 				text-align: center;
-				font-size: 4em;
-				color: rgb(197, 119, 119);
-				text-shadow: black 2px 2px 3px;
+				font-size: 3em;
+				font-family: Arial, Helvetica, sans-serif;
+				width: 50%;
+				padding: .5em;
+				margin: .5em;
+				border-radius: .5em;
+				background: rgba(211, 211, 211, .3);
 
 			}
 
 			.content{
 				position: absolute;
-				width: 50%;
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+			}
+
+
+
+			.paragraphLeft{
+				align-self:flex-start
+			}
+
+			.paragraphRight{
+				align-self: flex-end;
+			}
+
+			.skills {
+				font-size: 2em;
+			}
+
+			.skills > ul {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+			}
+
+			@media (max-width: 1000px) {
+				.header{
+					font-size: 1em;
+				}
+
+				.header > .name {
+					margin: 0;
+					font-size: 6em;
+					width: 100%;
+				}
+
+				.innerContent{
+					background-color: red;
+					margin: auto;
+				}
+
+				p {
+					width: 100%;
+					font-size: 2em;
+					align-self: center;
+				}
+
+				.paragraphLeft{
+					align-self:center
+				}
+
+				.paragraphRight{
+					align-self: center;
+				}
+
 			}
 
 		</style>
@@ -53,9 +125,28 @@
 		</div>
 
 		<div class="content">
-			<h1 class="name">Daniel McKee</h1>
-			<p>Highly motivated college student, looking for a place to contribute their skills and grow to benefit both the company and the community. Interested in experiencing and contributing to front and back-end web development firsthand.</p>
+			<div class="header">
+				<h1 class="name">Daniel McKee</h1>
+				<h2>Junior at THE Rochester Institute of Technology</h2>
+				<h2>Highly motivated college student, looking for a place to contribute their skills and grow to benefit both the company and the community. Interested in experiencing and contributing to front and back-end web development firsthand.</h2>
+			</div>
+			<div class="innerContent">
+				<p class="paragraphLeft">Highly motivated college student, looking for a place to contribute their skills and grow to benefit both the company and the community. Interested in experiencing and contributing to front and back-end web development firsthand.</p>
+				<p class="paragraphRight">Highly motivated college student, looking for a place to contribute their skills and grow to benefit both the company and the community. Interested in experiencing and contributing to front and back-end web development firsthand.</p>
+				<p class="paragraphLeft">Highly motivated college student, looking for a place to contribute their skills and grow to benefit both the company and the community. Interested in experiencing and contributing to front and back-end web development firsthand.</p>
+			</div>
+			<div class="skills">
+				<ul>
+					<li>Python</li>
+					<li>Java</li>
+					<li>JavaScript</li>
+					<li>C#</li>
+					<li>Lua</li>
+				</ul>
+			</div>
 		</div>
+
 
 	</body>
 </html>
+
