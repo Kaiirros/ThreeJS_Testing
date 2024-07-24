@@ -6,9 +6,8 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { FilmPass } from 'three/addons/postprocessing/FilmPass.js';
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
-import { AsciiEffect } from 'three/addons/effects/AsciiEffect.js';
 
-let camera, scene, renderer, effect;
+let camera, scene, renderer
 
 
 
@@ -23,7 +22,24 @@ if ( WebGL.isWebGLAvailable() ) {
     renderer.setSize( window.innerWidth, window.innerHeight );
     const composer = new EffectComposer( renderer );
 
-    //document.body.appendChild( renderer.domElement );
+
+    let navToggle = false;
+
+    window.addEventListener('load', function(e){
+        document.getElementById('navControl').addEventListener('click', function(e){
+            if (navToggle) {
+                document.getElementById('navbar').classList.add("navbarHidden")
+                console.log(document.getElementById('navbar').classList);
+                navToggle = false;
+
+            } else {
+                document.getElementById('navbar').classList.remove("navbarHidden")
+                navToggle = true
+
+            }
+        })
+    })
+
     document.getElementById("viewport").appendChild(renderer.domElement)
 
     const pivot = new THREE.Group();
@@ -41,7 +57,6 @@ if ( WebGL.isWebGLAvailable() ) {
     const sphereMat = new THREE.MeshBasicMaterial( { color: 0x3187A2 } );
     const sphereOne = new THREE.Mesh( sphereGeo, sphereMat );
     const sphereOne2 = new THREE.Mesh( sphereGeo, sphereMat );
-
 
     sphereOne2.translateZ(70)
     sphereOne.translateZ(-70)
@@ -88,7 +103,9 @@ if ( WebGL.isWebGLAvailable() ) {
 
     const newObject = new THREE.SphereGeometry(15, 16, 16)
     const newMat = new THREE.MeshBasicMaterial( { color: 0xFF0000 } );
-    const pivotClone = new THREE.Mesh( newObject, newMat );
+
+    const pivotCloneGeometry = new THREE.TorusGeometry(30, 2.0, 12, 48)
+    const pivotClone = new THREE.Mesh( pivotCloneGeometry, newMat );
     pivotClone.scale.set(0, 0, 0)
     pivotClone.position.set(-150, -50, 0)
     scene.add(pivot)
@@ -97,7 +114,7 @@ if ( WebGL.isWebGLAvailable() ) {
 
 
     const outlinePass = new OutlinePass(new THREE.Vector2(window.innerWidth, window.innerHeight), scene, camera);
-    outlinePass.selectedObjects = [origin, sphereOneParent, sphereTwoParent, sphereThreeParent];
+    outlinePass.selectedObjects = [origin, sphereOneParent, sphereTwoParent, sphereThreeParent, pivotClone];
     outlinePass.visibleEdgeColor = new THREE.Color(0xff00ff)
     composer.addPass( outlinePass );
     
@@ -122,22 +139,36 @@ if ( WebGL.isWebGLAvailable() ) {
     const height = Math.max(body.scrollHeight, body.offsetHeight,
     html.clientHeight, html.scrollHeight, html.offsetHeight);
 
-    const minVector = new THREE.Vector3(0, 0, 0)
-    const maxVector = new THREE.Vector3(1000, 1000, 1000)
+
+
+
+
 
     window.addEventListener("wheel", function(e) {
         if (this.scrollY+this.innerHeight < height) {
 
             if (Math.round(e.deltaY) >= 0) {
+
                 pivot.translateOnAxis(new THREE.Vector3(5, -3, 5), e.deltaY/50)
-                pivotClone.scale.set(this.scrollY/500, this.scrollY/500, this.scrollY/500)
+
+                if (this.scrollY > height/2) {
+                    pivotClone.scale.set((this.scrollY - (height/2))/500, (this.scrollY - (height/2))/500, (this.scrollY - (height/2))/500)
+                    pivotClone.translateOnAxis(new THREE.Vector3(2, 2, 2), e.deltaY/30)
+                    pivotClone.rotateY(e.deltaY/500)
+                }
 
                 //console.log(pivot.position)
 
             } else {
                 pivot.translateOnAxis(new THREE.Vector3(5, -3, 5), e.deltaY/50)
-                pivotClone.scale.set(-this.scrollY/500, -this.scrollY/500, -this.scrollY/500)
+                if (this.scrollY > height/2) {
+                    pivotClone.scale.set((this.scrollY - (height/2))/500, (this.scrollY - (height/2))/500, (this.scrollY - (height/2))/500)
+                    pivotClone.translateOnAxis(new THREE.Vector3(2, 2, 2), e.deltaY/30)
+                    pivotClone.rotateY(e.deltaY/500)
+                } else {
+                    pivotClone.scale.set(0, 0, 0)
 
+                }
 
                 if (pivot.position.y > 0){
                     pivot.position.set(0, 0, 0)

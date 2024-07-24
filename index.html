@@ -6,6 +6,68 @@
 		<style>
 			body { margin: 0; }
 
+			.navControl{
+				width: 100%;
+				height: 100%;
+				border: none;
+				clip-path: polygon(0% 0%, 100% 0%, 80%
+								   20%, 20% 20%, 20% 40%, 70% 40%, 50% 60%,
+								   20% 60%, 20% 80%, 40% 80%, 25% 100%,
+								   0% 100%);
+				transition: .5s;
+				background-color: black;
+				
+
+			}
+
+			.navControlContainer{
+				position: fixed;
+				width: 4em;
+				height: 4em;
+				z-index: 11;
+				background-color: transparent;
+
+				transition: 1s;
+			}
+
+			.navControlContainer:hover{
+				cursor: pointer;
+			}
+
+
+			.navControlContainer:hover > .navControl{
+				background-color: red;
+				clip-path: polygon(0% 0%, 100% 0%, 100%
+								   20%, 20% 20%, 20% 40%, 100% 40%, 100% 60%,
+								   20% 60%, 20% 80%, 100% 80%, 100% 100%,
+								   0% 100%);
+				cursor: pointer;
+
+			}
+
+
+			.navbarHidden{
+				opacity: 0 !important;
+			}
+
+			.navbar{
+				opacity: 1;
+				position: sticky;
+				top: 0;
+				background: rgba(211, 211, 211, .3);
+				z-index: 3;
+				font-size: 1.5em;
+				transition: 1s;
+			}
+
+			.navbar > ul{
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				list-style-type:lower-greek;
+			}
+
+
 			#info {
 				position: relative;
 				top: 10px;
@@ -29,6 +91,7 @@
 				text-align: center;
 				margin: auto;
 				width: 80%;
+				margin-bottom: 5em;
 
 			}
 
@@ -43,18 +106,8 @@
 				text-shadow: rgba(75, 150, 172, 0.755) 5px 5px 1px;
 				bottom: 0px;
 				z-index: 10;
-				padding-top: 4em;
-			}
-			p{
-				text-align: center;
-				font-size: 3em;
-				font-family: Arial, Helvetica, sans-serif;
-				width: 50%;
-				padding: .5em;
-				margin: .5em;
-				border-radius: .5em;
-				background: rgba(211, 211, 211, .3);
-
+				padding-top: 3em;
+				margin-bottom: 0;
 			}
 
 			.content{
@@ -64,14 +117,56 @@
 				flex-direction: column;
 			}
 
+			.innerContent{
+				display: flex;
+				flex-direction: column;
+			}
+
+			h1, h2, h3, h4{
+				font-family: monospace;
+			}
+
+			h4 > span {
+				font-weight: 1;
+				font-size: .8em;
+				color: gray
+
+			}
+
+
+			.section {
+				width: 100%;
+				font-size: 2em;
+				align-self: center;
+				background: rgba(211, 211, 211, .3);
+				margin: .5em;
+				border-radius: .5em;
+				width: 50%;
+				padding: .5em;
+			}
+
+			.section > p {
+				text-align: center;
+				font-size: .9em;
+				font-family: monospace
+			}
 
 
 			.paragraphLeft{
-				align-self:flex-start
+				align-self:flex-start;
+				border-right: .2em solid darkgray;
+				border-bottom: .2em solid gray;
 			}
 
 			.paragraphRight{
 				align-self: flex-end;
+				border-left: .2em solid darkgray;
+				border-bottom: .2em solid gray;
+			}
+
+			li {
+				font-family: monospace;
+				font-size: .8em;
 			}
 
 			.skills {
@@ -96,15 +191,9 @@
 				}
 
 				.innerContent{
-					background-color: red;
 					margin: auto;
 				}
 
-				p {
-					width: 100%;
-					font-size: 2em;
-					align-self: center;
-				}
 
 				.paragraphLeft{
 					align-self:center
@@ -124,18 +213,60 @@
 
 		</div>
 
+
 		<div class="content">
+			<div class="navControlContainer" id="navControl">
+				<button class="navControl" ></button>
+			</div>
+			<div class="navbar navbarHidden" id="navbar">
+				<ul>
+					<li>Experience</li>
+					<li>Education</li>
+					<li>Projects</li>
+				</ul>
+			</div>
 			<div class="header">
 				<h1 class="name">Daniel McKee</h1>
 				<h2>Junior at THE Rochester Institute of Technology</h2>
 				<h2>Highly motivated college student, looking for a place to contribute their skills and grow to benefit both the company and the community. Interested in experiencing and contributing to front and back-end web development firsthand.</h2>
 			</div>
 			<div class="innerContent">
-				<p class="paragraphLeft">Highly motivated college student, looking for a place to contribute their skills and grow to benefit both the company and the community. Interested in experiencing and contributing to front and back-end web development firsthand.</p>
-				<p class="paragraphRight">Highly motivated college student, looking for a place to contribute their skills and grow to benefit both the company and the community. Interested in experiencing and contributing to front and back-end web development firsthand.</p>
-				<p class="paragraphLeft">Highly motivated college student, looking for a place to contribute their skills and grow to benefit both the company and the community. Interested in experiencing and contributing to front and back-end web development firsthand.</p>
-			</div>
-			<div class="skills">
+				<div class="section paragraphLeft">
+					<h2>Experience</h2>
+					<h4>JSA Logistics Inc. <span>(June 2024 - Current)</span></h4>
+					<p>Description and Skills here</p>
+
+					<h4>Freelance 3D Modeler <span>(August 2020 - Current)</span></h4>
+					<p>Description and Skills here</p>
+
+					<h4>Student Internship <span>(June 2019 - August 2019)</span></h4>
+					<p>Description and Skills here</p>
+				</div>
+				<div class="section paragraphRight">
+					<h2>Education</h2>
+					<h4>Bachlors of Science, Web & Mobile Computing <br> <span>(August 2022 - Expected May 2026)</span></h4>
+					<ul>
+						<li>RIT Presidential Scholar Recipient</li>
+						<li>RIT Recognition Scholar Recipient</li>
+						<li>Dean's List; Spring 2023, Fall 2023, Spring 2024</li>
+					</ul>
+					<p>Description and Skills here</p>
+
+
+				</div>
+				<div class="section paragraphLeft">
+					<h2>Projects</h2>
+
+					<h4>Deliver 4U Company Website</h4>
+					<p>Information Website created with React.js</p>
+
+					<h4>Python Image Text Parser</h4>
+					<p>using Pytesseract and OpenCV</p>
+
+					<h4>Bot Commander Game</h4>
+					<p>Written in Lua on the ROBLOX Platform</p>
+				</div>
+			<div class="skills section">
 				<ul>
 					<li>Python</li>
 					<li>Java</li>
