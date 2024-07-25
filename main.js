@@ -139,64 +139,38 @@ if ( WebGL.isWebGLAvailable() ) {
     const height = Math.max(body.scrollHeight, body.offsetHeight,
     html.clientHeight, html.scrollHeight, html.offsetHeight);
 
+    window.addEventListener('scroll', function(e){
+        let scroll = this.scrollY
+        pivot.scale.set(scroll/1000+1, scroll/1000+1, scroll/1000+1)
+        console.log(pivot.position.y);
 
-
-
-
-
-    window.addEventListener("wheel", function(e) {
-        if (this.scrollY+this.innerHeight < height) {
-
-            if (Math.round(e.deltaY) >= 0) {
-
-                pivot.translateOnAxis(new THREE.Vector3(5, -3, 5), e.deltaY/50)
-
-                if (this.scrollY > height/2) {
-                    pivotClone.scale.set((this.scrollY - (height/2))/500, (this.scrollY - (height/2))/500, (this.scrollY - (height/2))/500)
-                    pivotClone.translateOnAxis(new THREE.Vector3(2, 2, 2), e.deltaY/30)
-                    pivotClone.rotateY(e.deltaY/500)
-                }
-
-                //console.log(pivot.position)
-
-            } else {
-                pivot.translateOnAxis(new THREE.Vector3(5, -3, 5), e.deltaY/50)
-                if (this.scrollY > height/2) {
-                    pivotClone.scale.set((this.scrollY - (height/2))/500, (this.scrollY - (height/2))/500, (this.scrollY - (height/2))/500)
-                    pivotClone.translateOnAxis(new THREE.Vector3(2, 2, 2), e.deltaY/30)
-                    pivotClone.rotateY(e.deltaY/500)
-                } else {
-                    pivotClone.scale.set(0, 0, 0)
-
-                }
-
-                if (pivot.position.y > 0){
-                    pivot.position.set(0, 0, 0)
-                    console.log(pivot.position.y);
-                }
-
-            }
-        } else {
-            //console.log("out of bounds")
+        if (!(pivot.position.y < -15)){
+            pivot.position.set(0, -scroll/100, 0)
         }
     })
 
+
+
 function animate() {
-	requestAnimationFrame( animate );
+    setTimeout(() => {
+        requestAnimationFrame( animate );
 
-    sphereOneParent.rotateY(0.01)
-    sphereOneParent.rotateX(0.01)
+        sphereOneParent.rotateY(0.01)
+        sphereOneParent.rotateX(0.01)
+    
+    
+        sphereTwoParent.rotateX(0.01);
+        sphereTwoParent.rotateY(0.01);
+    
+    
+        sphereThreeParent.rotateY(0.01);
+        sphereThreeParent.rotateX(0.01);
+    
+    
+    }, 10);
+    composer.render();
 
 
-    sphereTwoParent.rotateX(0.01);
-    sphereTwoParent.rotateY(0.01);
-
-
-    sphereThreeParent.rotateY(0.01);
-    sphereThreeParent.rotateX(0.01);
-
-
-	composer.render();
 }
 
 animate();
