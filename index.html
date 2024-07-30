@@ -6,46 +6,6 @@
 		<style>
 			body { margin: 0; }
 
-			.navControl{
-				width: 100%;
-				height: 100%;
-				border: none;
-				clip-path: polygon(0% 0%, 100% 0%, 80%
-								   20%, 20% 20%, 20% 40%, 70% 40%, 50% 60%,
-								   20% 60%, 20% 80%, 40% 80%, 25% 100%,
-								   0% 100%);
-				transition: .5s;
-				background-color: black;
-				
-
-			}
-
-			.navControlContainer{
-				position: fixed;
-				width: 4em;
-				height: 4em;
-				z-index: 11;
-				background-color: transparent;
-
-				transition: 1s;
-			}
-
-			.navControlContainer:hover{
-				cursor: pointer;
-			}
-
-
-			.navControlContainer:hover > .navControl{
-				background-color: red;
-				clip-path: polygon(0% 0%, 100% 0%, 100%
-								   20%, 20% 20%, 20% 40%, 100% 40%, 100% 60%,
-								   20% 60%, 20% 80%, 100% 80%, 100% 100%,
-								   0% 100%);
-				cursor: pointer;
-
-			}
-
-
 			.navbarHidden{
 				opacity: 0 !important;
 			}
@@ -122,7 +82,7 @@
 				flex-direction: column;
 			}
 
-			h1, h2, h3, h4{
+			h1, h2, h3, h4, p{
 				font-family: monospace;
 			}
 
@@ -131,6 +91,19 @@
 				font-size: .8em;
 				color: gray
 
+			}
+
+			.viewDetails{
+				font-size: .6em;
+				float: right;
+				z-index: 5;
+				padding: .2em;
+			}
+
+			.viewDetails:hover{
+				color: black;
+				text-decoration-line: underline;
+				text-decoration-thickness: .2em;
 			}
 
 
@@ -179,6 +152,38 @@
 				justify-content: space-around;
 			}
 
+			/* Accordion Styles */
+			.accordion{
+				cursor: pointer;
+
+			}
+
+
+			.accordionOpen > div > p {
+				opacity: 1;
+			}
+
+			.accordion > div {
+				opacity: 0;
+				max-height: 0em;
+				background-color: rgba(172, 172, 172, 0.193);
+				border: .15em inset rgba(172, 172, 172, 0.5);
+
+				transition: opacity 1s, max-height 1s;
+
+			}
+
+
+			.accordionOpen > div {
+				border: .15em inset rgba(172, 172, 172, 0.5);
+				background-color: rgba(172, 172, 172, 0.5);
+
+				opacity: 1;
+				max-height: 10em;
+				transition: opacity .1s, max-height .1s;
+
+			}
+
 			@media (max-width: 1000px) {
 				.header{
 					font-size: 1em;
@@ -208,16 +213,13 @@
 		</style>
 	</head>
 	<body>
-		<script type="module" src="/main.js"></script>
+		<script type="module" src="/threejs.js"></script>
 		<div id="viewport">
 
 		</div>
 
 
 		<div class="content">
-			<div class="navControlContainer" id="navControl">
-				<button class="navControl" ></button>
-			</div>
 			<div class="navbar navbarHidden" id="navbar">
 				<ul>
 					<li>Experience</li>
@@ -233,14 +235,32 @@
 			<div class="innerContent">
 				<div class="section paragraphLeft">
 					<h2>Experience</h2>
-					<h4>JSA Logistics Inc. <span>(June 2024 - Current)</span></h4>
-					<p>Description and Skills here</p>
+					<div class="accordion">
+						<h4>JSA Logistics Inc. <span>(June 2024 - Current)</span><span class="viewDetails">View details</span></h4>
+						<div>
+							<p>Buffalo, NY</p>
+							<ul>
+								<li>Utilized Blender 3D and Adobe Substance 3D Painter to create engine-ready assets for clients.</li>
+								<li>Acquired skils in commission-based work with deadlines and client communication.</li>
+							</ul>
+						</div>
+					</div>
 
-					<h4>Freelance 3D Modeler <span>(August 2020 - Current)</span></h4>
-					<p>Description and Skills here</p>
+					<div class="accordion">
+						<h4>Freelance 3D Modeler <span>(August 2020 - Current)</span><span class="viewDetails">View details</span></h4>
+						<div>
+							<p>Description and Skills here</p>
+						</div>
+					</div>
 
-					<h4>Student Internship <span>(June 2019 - August 2019)</span></h4>
-					<p>Description and Skills here</p>
+					<div class="accordion">
+						<h4>Student Internship <span>(June 2019 - August 2019)</span><span class="viewDetails">View details</span></h4>
+						<div>
+							<p>Description and Skills here</p>
+						</div>
+					</div>
+
+
 				</div>
 				<div class="section paragraphRight">
 					<h2>Education</h2>
@@ -277,7 +297,7 @@
 			</div>
 		</div>
 
-
+<script src="/main.js"></script>
 	</body>
 </html>
 
