@@ -6,7 +6,6 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { FilmPass } from 'three/addons/postprocessing/FilmPass.js';
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
-import { CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer.js';
     
 let camera, scene, renderer
 
@@ -118,7 +117,12 @@ if ( WebGL.isWebGLAvailable() ) {
     window.addEventListener('scroll', function(e){
         let scroll = this.scrollY
     
-        navbarVisibility(scroll)
+        if (scroll > 1){
+            this.document.getElementById('navbar').classList.add('navbarHidden')
+        } else {
+            this.document.getElementById('navbar').classList.remove('navbarHidden')
+    
+        }
     
         pivot.scale.set(scroll/1000+1, scroll/1000+1, scroll/1000+1)
     
@@ -126,6 +130,24 @@ if ( WebGL.isWebGLAvailable() ) {
             pivot.position.set(0, -scroll/100, 0)
         }
     })
+
+
+    function accordion(viewDetailsButtons){
+        Array.from(viewDetailsButtons).forEach(element => {
+            let accordion = element.parentElement.parentElement
+            element.addEventListener('click', function(e){
+                if (accordion.classList.contains('accordionOpen')){
+                    accordion.classList.remove('accordionOpen')
+                } else {
+                    accordion.classList.add('accordionOpen')
+                }
+                
+            })
+        });
+    }
+
+    let viewDetailsButtons = document.getElementsByClassName('viewDetails')
+    accordion(viewDetailsButtons)
 
 function animate() {
     setTimeout(() => {
