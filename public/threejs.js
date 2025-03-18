@@ -1,10 +1,10 @@
 import * as THREE from 'three';
-import WebGL from 'three/addons/capabilities/WebGL.js';
+import { WebGL } from 'three/examples/jsm/capabilities/WebGL.js';
 import { degToRad } from 'three/src/math/MathUtils.js';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
-import { FilmPass } from 'three/addons/postprocessing/FilmPass.js';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
+import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
     
 let camera, scene, renderer
