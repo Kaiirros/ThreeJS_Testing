@@ -30,14 +30,12 @@ jobs:
         node -v
         npm list vite
         npm run build
+
+    - name: Install sshpass
+      run: sudo apt-get install -y sshpass
+
     
     - name: Deploy via SFTP
       run: |
-        ls
-        mkdir -p ~/.ssh
-        ssh-keyscan ${SSH_HOST} >> ~/.ssh/known_hosts
-        sftp -vv ${SSH_USERNAME}@${SSH_HOST} <<EOF
-        ls
-        bye
-        EOF
+        sshpass -p ${SSH_PASSWORD} sftp ${SSH_USERNAME}@${SSH_HOST}:/home/dgm6546
 
