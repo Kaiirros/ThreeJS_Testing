@@ -11,10 +11,11 @@ jobs:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       SSH_HOST: ${{ secrets.SSH_HOST }}
       SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+      SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -25,15 +26,16 @@ jobs:
       run: npm ci
 
     - name: Build project
-      run: node -v
+      run: |
+        node -v
         npm list vite
         npm run build
-
-
-    - name: Deploy to Web Server via SFTP
+    
+    - name: Deploy via SFTP
       run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
-        sftp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r ./dist/* ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/www/home/
+        ls
+        sftp ${SSH_USERNAME}@${SSH_HOST} <<EOF
+        ls
+        bye
+        EOF
+
