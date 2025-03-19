@@ -1,17 +1,17 @@
 import * as THREE from 'three';
-import { WebGL } from 'three/examples/jsm/capabilities/WebGL.js';
 import { degToRad } from 'three/src/math/MathUtils.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
 import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
+import { WebGLRenderer } from 'three';
     
 let camera, scene, renderer
 
 
 
-if ( WebGL.isWebGLAvailable() ) {
+if ( WebGLRenderer ) {
 
 	scene = new THREE.Scene();
     scene.background = new THREE.Color(0xADD8E6)
