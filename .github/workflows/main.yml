@@ -34,7 +34,9 @@ jobs:
     - name: Deploy via SFTP
       run: |
         ls
-        sftp ${SSH_USERNAME}@${SSH_HOST} <<EOF
+        mkdir -p ~/.ssh
+        ssh-keyscan ${SSH_HOST} >> ~/.ssh/known_hosts
+        sftp -vv ${SSH_USERNAME}@${SSH_HOST} <<EOF
         ls
         bye
         EOF
