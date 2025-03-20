@@ -37,6 +37,6 @@ jobs:
     
     - name: Deploy via SFTP
       run: |
-        sshpass -p ${SSH_PASSWORD} sftp ${SSH_USERNAME}@${SSH_HOST}:/home/dgm6546
+        sshpass -p "${SSH_PASSWORD}" sftp -o StrictHostKeyChecking=no ${SSH_USERNAME}@${SSH_HOST}:/home/${SSH_USERNAME}
         ls
 
