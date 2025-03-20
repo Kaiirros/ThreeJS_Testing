@@ -1,12 +1,16 @@
 name: Deploy Application
 
+# This workflow will deploy the application when there is a push to the repository
+# or it is manually called through the Github Actions tab in the repository
 on:
+  push:
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
+    # Uses repository secrets from Github
     env:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       SSH_HOST: ${{ secrets.SSH_HOST }}
@@ -31,10 +35,13 @@ jobs:
         npm list vite
         npm run build
 
+    # Installs sshpass to include a password with the remote access command
+    # Attempted to set up a SSH key onto banjo but it was super annoying and always asked for
+    # password authentication anyways. 
     - name: Install sshpass
       run: sudo apt-get install -y sshpass
 
-    
+    # Copies the contents of the dist build folder and puts them into the specified path on banjo
     - name: Deploy via SFTP
       run: |
         sshpass -p "${SSH_PASSWORD}" scp -o StrictHostKeyChecking=no -r dist/* ${SSH_USERNAME}@${SSH_HOST}:www/home
