@@ -6,7 +6,7 @@
     "vite": "^6.2.2"
   },
   "scripts": {
-    "build": "vite build",
+    "build": "vite build --base=/home/dgm6546/www/home",
     "preview": "vite preview"
   }
 }
